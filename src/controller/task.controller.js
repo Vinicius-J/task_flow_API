@@ -1,7 +1,12 @@
 import { request, response } from "express";
-import { CreateTask } from "../services/createTask.js";
+import { CreateTaskService } from "../services/CreateTaskService.js";
 
 export class TaskController {
+  constructor() {
+    this.createTask = new CreateTaskService();
+    this.store = this.store.bind(this);
+  }
+
   async index(req, res) {
     try {
       return res.status(200).json({ message: "Task" });
@@ -13,11 +18,8 @@ export class TaskController {
   async store(req, res) {
     try {
       const { task } = req.body;
-      const createTask = new CreateTask();
-      const tasks = await createTask.execute(task);
-      return res
-        .status(200)
-        .json({ message: "Task successfully created", task });
+      const newTask = this.createTask.execute(task);
+      return res.status(201).json(newTask);
     } catch (err) {
       return res.status(400).json({ errorMessage: err.message });
     }
