@@ -1,4 +1,5 @@
 import { request, response } from "express";
+import { CreateTask } from "../services/createTask.js";
 
 export class TaskController {
   async index(req, res) {
@@ -11,9 +12,14 @@ export class TaskController {
 
   async store(req, res) {
     try {
-      return res.status(200).json({ message: "Task" });
+      const { task } = req.body;
+      const createTask = new CreateTask();
+      const tasks = await createTask.execute(task);
+      return res
+        .status(200)
+        .json({ message: "Task successfully created", task });
     } catch (err) {
-      return res.status(400).json({ message: err.message });
+      return res.status(400).json({ errorMessage: err.message });
     }
   }
 }
