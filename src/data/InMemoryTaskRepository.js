@@ -6,7 +6,7 @@ const tasks = [
   { id: 5, status: "completed", task: "Tarefa 5" },
 ];
 
-const TaskRepostitory = {
+const InMemoryTaskRepository = {
   create(task) {
     tasks.push(task);
   },
@@ -18,4 +18,4 @@ const TaskRepostitory = {
   },
 };
 
-export default TaskRepository;
+export default InMemoryTaskRepository;
