@@ -5,16 +5,15 @@ export class UpdateTaskService {
     this.repository = InMemoryTaskRepository;
   }
 
-  execute(id, updtTask) {
-    if (!updtTask || typeof updtTask !== "string") {
+  execute(id, updatedTask) {
+    if (!updatedTask || typeof updatedTask !== "string") {
       throw new Error("Task is required");
     }
 
     const task = this.repository.findById(id);
-
     if (!task) throw new Error("Task not found");
 
-    task.task = updtTask;
+    this.repository.update(id, updatedTask);
 
     return task;
   }
