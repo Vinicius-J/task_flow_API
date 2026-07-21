@@ -1,14 +1,18 @@
 import { CreateTaskService } from "../services/CreateTaskService.js";
+import { FindAllTasksService } from "../services/FindAllTasksService.js";
 
 export class TaskController {
   constructor() {
     this.createTask = new CreateTaskService();
     this.store = this.store.bind(this);
+    this.findAllTasksService = new FindAllTasksService();
+    this.index = this.index.bind(this);
   }
 
   async index(req, res) {
     try {
-      return res.status(200).json({ message: "Task" });
+      const tasks = this.findAllTasksService.execute();
+      return res.status(200).json(tasks);
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }
