@@ -14,7 +14,7 @@ const InMemoryTaskRepository = {
     return tasks;
   },
   findById(id) {
-    return tasks.find((task) => task.id === id);
+    return tasks.find((task) => task.id === Number(id));
   },
 };
 
