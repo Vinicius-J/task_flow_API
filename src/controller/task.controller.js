@@ -1,4 +1,3 @@
-import { request, response } from "express";
 import { CreateTaskService } from "../services/CreateTaskService.js";
 
 export class TaskController {
