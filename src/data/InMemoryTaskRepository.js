@@ -1,4 +1,4 @@
-const tasks = [
+let tasks = [
   { id: 1, status: "inProgress", task: "Tarefa 1" },
   { id: 2, status: "completed", task: "Tarefa 2" },
   { id: 3, status: "inProgress", task: "Tarefa 3" },
@@ -15,6 +15,11 @@ const InMemoryTaskRepository = {
   },
   findById(id) {
     return tasks.find((task) => task.id === Number(id));
+  },
+  delete(id) {
+    const newTasks = tasks.filter((task) => task.id !== Number(id));
+    tasks = newTasks;
+    return tasks;
   },
 };
 
