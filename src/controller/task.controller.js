@@ -50,9 +50,9 @@ export class TaskController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { updtTask } = req.body;
+      const { updatedTask } = req.body;
 
-      const task = this.updateTaskService.execute(id, updtTask);
+      const task = this.updateTaskService.execute(id, updatedTask);
       return res.status(200).json(task);
     } catch (err) {
       return res.status(404).json({ message: err.message });
