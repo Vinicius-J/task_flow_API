@@ -18,9 +18,8 @@ const InMemoryTaskRepository = {
     return tasks.find((task) => task.id === Number(id));
   },
   update(id, updatedTask) {
-    tasks.forEach((task) => {
-      if (task.id === Number(id)) task.task = updatedTask;
-    });
+    const task = tasks.find((task) => task.id === Number(id));
+    if (task) task.task = updatedTask;
   },
   delete(id) {
     const newTasks = tasks.filter((task) => task.id !== Number(id));
