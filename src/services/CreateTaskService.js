@@ -1,16 +1,19 @@
 import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
 
 export class CreateTaskService {
-  repository;
   constructor() {
     this.repository = InMemoryTaskRepository;
   }
 
   execute(task) {
-    const lastTask = this.repository.at(-1);
+    if (!task || typeof task !== "string") throw new Error("Task is required");
+
+    const lastTask = this.repository.findAll().at(-1);
     const id = lastTask ? lastTask.id + 1 : 1;
+
     const newTask = { id, status: "inProgress", task };
-    this.repository.push(newTask);
+    this.repository.create(newTask);
+
     return newTask;
   }
 }
