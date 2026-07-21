@@ -1,4 +1,5 @@
 import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
+import { TaskStatus } from "../utils/TaskStatus.js";
 
 export class CreateTaskService {
   constructor() {
@@ -11,7 +12,7 @@ export class CreateTaskService {
     const lastTask = this.repository.findAll().at(-1);
     const id = lastTask ? lastTask.id + 1 : 1;
 
-    const newTask = { id, status: "inProgress", task };
+    const newTask = { id, status: TaskStatus.IN_PROGRESS, task };
     this.repository.create(newTask);
 
     return newTask;
