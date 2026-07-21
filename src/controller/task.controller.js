@@ -1,6 +1,7 @@
 import { CreateTaskService } from "../services/CreateTaskService.js";
 import { FindAllTasksService } from "../services/FindAllTasksService.js";
 import { FindTaskByIdService } from "../services/FindTaskByIdService.js";
+import { UpdateTaskService } from "../services/UpdateTaskService.js";
 
 export class TaskController {
   constructor() {
@@ -10,6 +11,8 @@ export class TaskController {
     this.index = this.index.bind(this);
     this.findTaskByIdService = new FindTaskByIdService();
     this.show = this.show.bind(this);
+    this.updateTaskService = new UpdateTaskService();
+    this.update = this.update.bind(this);
   }
 
   async index(req, res) {
@@ -35,6 +38,18 @@ export class TaskController {
     try {
       const { id } = req.params;
       const task = this.findTaskByIdService.execute(id);
+      return res.status(200).json(task);
+    } catch (err) {
+      return res.status(404).json({ message: err.message });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+      const { updtTask } = req.body;
+
+      const task = this.updateTaskService.execute(id, updtTask);
       return res.status(200).json(task);
     } catch (err) {
       return res.status(404).json({ message: err.message });

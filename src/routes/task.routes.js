@@ -7,5 +7,6 @@ const controller = new TaskController();
 taskRoutes.get("/", controller.index);
 taskRoutes.post("/", controller.store);
 taskRoutes.get("/:id", controller.show);
+taskRoutes.put("/:id", controller.update);
 
 export default taskRoutes;
