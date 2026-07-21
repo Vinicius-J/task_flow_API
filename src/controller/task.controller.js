@@ -63,7 +63,7 @@ export class TaskController {
     try {
       const { id } = req.params;
       const task = this.deleteTaskService.execute(id);
-      return res.status(200).json(task);
+      return res.status(204).json(task);
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
