@@ -3,7 +3,6 @@ import express from "express";
 import taskRoutes from "./routes/task.routes.js";
 
 class App {
-  app;
   constructor() {
     this.app = express();
     this.middlewares();
