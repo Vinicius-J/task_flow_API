@@ -62,8 +62,8 @@ export class TaskController {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const task = this.deleteTaskService.execute(id);
-      return res.status(204).json({ message: "Task deleted" });
+      this.deleteTaskService.execute(id);
+      return res.sendStatus(204);
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
