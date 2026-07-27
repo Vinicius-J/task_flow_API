@@ -7,27 +7,22 @@ import { DeleteTaskService } from "../services/DeleteTaskService.js";
 export class TaskController {
   constructor() {
     this.createTask = new CreateTaskService();
-    this.store = this.store.bind(this);
     this.findAllTasksService = new FindAllTasksService();
-    this.index = this.index.bind(this);
     this.findTaskByIdService = new FindTaskByIdService();
-    this.show = this.show.bind(this);
     this.updateTaskService = new UpdateTaskService();
-    this.update = this.update.bind(this);
     this.deleteTaskService = new DeleteTaskService();
-    this.delete = this.delete.bind(this);
   }
 
-  async index(req, res) {
+  index = async (req, res) => {
     try {
       const tasks = this.findAllTasksService.execute();
       return res.status(200).json(tasks);
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }
-  }
+  };
 
-  async store(req, res) {
+  store = async (req, res) => {
     try {
       const { task } = req.body;
       const newTask = this.createTask.execute(task);
@@ -35,9 +30,9 @@ export class TaskController {
     } catch (err) {
       return res.status(400).json({ errorMessage: err.message });
     }
-  }
+  };
 
-  async show(req, res) {
+  show = async (req, res) => {
     try {
       const { id } = req.params;
       const task = this.findTaskByIdService.execute(id);
@@ -45,9 +40,9 @@ export class TaskController {
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  }
+  };
 
-  async update(req, res) {
+  update = async (req, res) => {
     try {
       const { id } = req.params;
       const { updatedTask } = req.body;
@@ -57,9 +52,9 @@ export class TaskController {
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  }
+  };
 
-  async delete(req, res) {
+  delete = async (req, res) => {
     try {
       const { id } = req.params;
       this.deleteTaskService.execute(id);
@@ -67,5 +62,5 @@ export class TaskController {
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  }
+  };
 }
