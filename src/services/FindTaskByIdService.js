@@ -1,8 +1,8 @@
 import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
 
 export class FindTaskByIdService {
-  constructor() {
-    this.repository = InMemoryTaskRepository;
+  constructor(repository) {
+    this.repository = repository;
   }
 
   execute(id) {
