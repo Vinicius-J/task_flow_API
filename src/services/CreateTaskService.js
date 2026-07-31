@@ -1,9 +1,8 @@
-import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
 import { TaskStatus } from "../utils/TaskStatus.js";
 
 export class CreateTaskService {
-  constructor() {
-    this.repository = InMemoryTaskRepository;
+  constructor(repository) {
+    this.repository = repository;
   }
 
   execute(task) {

@@ -1,4 +1,4 @@
-import { CreateTaskService } from "../services/CreateTaskService.js";
+import { makeCreateTaskService } from "../factories/makeCreateTaskService.js";
 import { FindAllTasksService } from "../services/FindAllTasksService.js";
 import { FindTaskByIdService } from "../services/FindTaskByIdService.js";
 import { UpdateTaskService } from "../services/UpdateTaskService.js";
@@ -6,7 +6,6 @@ import { DeleteTaskService } from "../services/DeleteTaskService.js";
 
 export class TaskController {
   constructor() {
-    this.createTask = new CreateTaskService();
     this.findAllTasksService = new FindAllTasksService();
     this.findTaskByIdService = new FindTaskByIdService();
     this.updateTaskService = new UpdateTaskService();
@@ -25,7 +24,8 @@ export class TaskController {
   store = async (req, res) => {
     try {
       const { task } = req.body;
-      const newTask = this.createTask.execute(task);
+      const useCase = makeCreateTaskService();
+      const newTask = useCase.execute(task);
       return res.status(201).json(newTask);
     } catch (err) {
       return res.status(400).json({ errorMessage: err.message });
