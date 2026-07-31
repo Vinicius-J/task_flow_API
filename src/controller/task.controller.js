@@ -1,27 +1,21 @@
 import { makeCreateTaskService } from "../factories/makeCreateTaskService.js";
-import { FindAllTasksService } from "../services/FindAllTasksService.js";
-import { FindTaskByIdService } from "../services/FindTaskByIdService.js";
-import { UpdateTaskService } from "../services/UpdateTaskService.js";
-import { DeleteTaskService } from "../services/DeleteTaskService.js";
+import { makeFindAllTasksService } from "../factories/makeFindAllTasksService.js";
+import { makeFindTaskByIdService } from "../factories/makeFindTaskByIdService.js";
+import { makeUpdateTaskService } from "../factories/makeUpdateTaskService.js";
+import { makeDeleteTaskService } from "../factories/makeDeleteTaskService.js";
 
 export class TaskController {
-  constructor() {
-    this.findAllTasksService = new FindAllTasksService();
-    this.findTaskByIdService = new FindTaskByIdService();
-    this.updateTaskService = new UpdateTaskService();
-    this.deleteTaskService = new DeleteTaskService();
-  }
-
-  index = async (req, res) => {
+  async index(req, res) {
     try {
-      const tasks = this.findAllTasksService.execute();
+      const useCase = makeFindAllTasksService();
+      const tasks = useCase.execute();
       return res.status(200).json(tasks);
     } catch (err) {
       return res.status(400).json({ message: err.message });
     }
-  };
+  }
 
-  store = async (req, res) => {
+  async store(req, res) {
     try {
       const { task } = req.body;
       const useCase = makeCreateTaskService();
@@ -30,37 +24,40 @@ export class TaskController {
     } catch (err) {
       return res.status(400).json({ errorMessage: err.message });
     }
-  };
+  }
 
-  show = async (req, res) => {
+  async show(req, res) {
     try {
       const { id } = req.params;
-      const task = this.findTaskByIdService.execute(id);
+      const useCase = makeFindTaskByIdService();
+      const task = useCase.execute(id);
       return res.status(200).json(task);
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  };
+  }
 
-  update = async (req, res) => {
+  async update(req, res) {
     try {
       const { id } = req.params;
       const { updatedTask } = req.body;
+      const useCase = makeUpdateTaskService();
 
-      const task = this.updateTaskService.execute(id, updatedTask);
+      const task = useCase.execute(id, updatedTask);
       return res.status(200).json(task);
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  };
+  }
 
-  delete = async (req, res) => {
+  async delete(req, res) {
     try {
       const { id } = req.params;
-      this.deleteTaskService.execute(id);
+      const useCase = makeDeleteTaskService();
+      useCase.execute(id);
       return res.sendStatus(204);
     } catch (err) {
       return res.status(404).json({ message: err.message });
     }
-  };
+  }
 }
