@@ -1,5 +1,3 @@
-import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
-
 export class UpdateTaskService {
   constructor(repository) {
     this.repository = repository;
