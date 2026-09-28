@@ -87,23 +87,19 @@ Uma representação da organização atual/conceitual:
 
 ```text
 src
-├── controllers
+├── controller
+│
+├── data
+│
+├── factories
+│
+├── main
 │
 ├── routes
 │
 ├── services
 │
-├── repositories
-│
-├── entities
-│
-├── dtos
-│
-├── errors
-│
-├── utils
-│
-└── server
+└── utils
 ```
 
 A estrutura será reorganizada gradualmente conforme novos conceitos de arquitetura forem introduzidos.
@@ -227,7 +223,7 @@ git --version
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/Vinicius-J/task-flow.git
+git clone https://github.com/Vinicius-J/task_flow_API
 ```
 
 ### 2. Entre na pasta do projeto
