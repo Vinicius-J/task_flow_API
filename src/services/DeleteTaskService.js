@@ -1,4 +1,4 @@
-export class DeleteTaskService {
+class DeleteTaskService {
   constructor(repository) {
     this.repository = repository;
   }
@@ -10,3 +10,5 @@ export class DeleteTaskService {
     return task;
   }
 }
+
+module.exports = DeleteTaskService;

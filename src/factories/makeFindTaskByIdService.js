@@ -1,7 +1,9 @@
-import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
-import { FindTaskByIdService } from "../services/FindTaskByIdService.js";
+const InMemoryTaskRepository = require("../data/InMemoryTaskRepository.js");
+const FindTaskByIdService = require("../services/FindTaskByIdService.js");
 
-export function makeFindTaskByIdService() {
+function makeFindTaskByIdService() {
   const repository = InMemoryTaskRepository;
   return new FindTaskByIdService(repository);
 }
+
+module.exports = makeFindTaskByIdService;

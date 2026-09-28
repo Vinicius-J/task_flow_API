@@ -1,4 +1,5 @@
-import { TaskStatus } from "../utils/TaskStatus.js";
+const TaskStatus = "../utils/TaskStatus.js";
+
 let tasks = [
   { id: 1, status: TaskStatus.IN_PROGRESS, task: "Tarefa 1" },
   { id: 2, status: TaskStatus.COMPLETED, task: "Tarefa 2" },
@@ -28,4 +29,4 @@ const InMemoryTaskRepository = {
   },
 };
 
-export default InMemoryTaskRepository;
+module.exports = InMemoryTaskRepository;

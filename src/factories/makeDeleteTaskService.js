@@ -1,7 +1,9 @@
-import InMemoryTaskRepository from "../data/InMemoryTaskRepository.js";
-import { DeleteTaskService } from "../services/DeleteTaskService.js";
+const InMemoryTaskRepository = require("../data/InMemoryTaskRepository.js");
+const DeleteTaskService = require("../services/DeleteTaskService.js");
 
-export function makeDeleteTaskService() {
+function makeDeleteTaskService() {
   const repository = InMemoryTaskRepository;
   return new DeleteTaskService(repository);
 }
+
+module.exports = makeDeleteTaskService;

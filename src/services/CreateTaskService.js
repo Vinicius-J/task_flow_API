@@ -1,6 +1,6 @@
-import { TaskStatus } from "../utils/TaskStatus.js";
+const TaskStatus = require("../utils/TaskStatus.js");
 
-export class CreateTaskService {
+class CreateTaskService {
   constructor(repository) {
     this.repository = repository;
   }
@@ -17,3 +17,5 @@ export class CreateTaskService {
     return newTask;
   }
 }
+
+module.exports = CreateTaskService;

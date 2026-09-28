@@ -1,4 +1,6 @@
-export const TaskStatus = {
+const TaskStatus = {
   IN_PROGRESS: "inProgress",
   COMPLETED: "completed",
 };
+
+module.exports = TaskStatus;

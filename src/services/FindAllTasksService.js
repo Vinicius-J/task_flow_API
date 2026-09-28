@@ -1,4 +1,4 @@
-export class FindAllTasksService {
+class FindAllTasksService {
   constructor(repository) {
     this.repository = repository;
   }
@@ -8,3 +8,5 @@ export class FindAllTasksService {
     return tasks;
   }
 }
+
+module.exports = FindAllTasksService;

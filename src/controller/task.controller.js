@@ -1,11 +1,11 @@
-import { makeCreateTaskService } from "../factories/makeCreateTaskService.js";
-import { makeFindAllTasksService } from "../factories/makeFindAllTasksService.js";
-import { makeFindTaskByIdService } from "../factories/makeFindTaskByIdService.js";
-import { makeUpdateTaskService } from "../factories/makeUpdateTaskService.js";
-import { makeDeleteTaskService } from "../factories/makeDeleteTaskService.js";
+const makeCreateTaskService = require("../factories/makeCreateTaskService.js");
+const makeFindAllTasksService = require("../factories/makeFindAllTasksService.js");
+const makeFindTaskByIdService = require("../factories/makeFindTaskByIdService.js");
+const makeUpdateTaskService = require("../factories/makeUpdateTaskService.js");
+const makeDeleteTaskService = require("../factories/makeDeleteTaskService.js");
 
-export class TaskController {
-  async index(req, res) {
+class TaskController {
+  index(req, res) {
     try {
       const useCase = makeFindAllTasksService();
       const tasks = useCase.execute();
@@ -15,7 +15,7 @@ export class TaskController {
     }
   }
 
-  async store(req, res) {
+  store(req, res) {
     try {
       const { task } = req.body;
       const useCase = makeCreateTaskService();
@@ -26,7 +26,7 @@ export class TaskController {
     }
   }
 
-  async show(req, res) {
+  show(req, res) {
     try {
       const { id } = req.params;
       const useCase = makeFindTaskByIdService();
@@ -37,7 +37,7 @@ export class TaskController {
     }
   }
 
-  async update(req, res) {
+  update(req, res) {
     try {
       const { id } = req.params;
       const { updatedTask } = req.body;
@@ -50,7 +50,7 @@ export class TaskController {
     }
   }
 
-  async delete(req, res) {
+  delete(req, res) {
     try {
       const { id } = req.params;
       const useCase = makeDeleteTaskService();
@@ -61,3 +61,5 @@ export class TaskController {
     }
   }
 }
+
+module.exports = TaskController;

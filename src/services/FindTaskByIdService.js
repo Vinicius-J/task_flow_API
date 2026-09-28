@@ -1,4 +1,4 @@
-export class FindTaskByIdService {
+class FindTaskByIdService {
   constructor(repository) {
     this.repository = repository;
   }
@@ -11,3 +11,5 @@ export class FindTaskByIdService {
     return task;
   }
 }
+
+module.exports = FindTaskByIdService;

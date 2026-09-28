@@ -1,6 +1,6 @@
-import express from "express";
+const express = require("express");
 
-import taskRoutes from "../routes/task.routes.js";
+const taskRoutes = require("../routes/task.routes.js");
 
 class App {
   constructor() {
@@ -19,4 +19,6 @@ class App {
   }
 }
 
-export default new App().app;
+const app = new App().app;
+
+module.exports = app;
