@@ -15,7 +15,7 @@ class App {
   }
 
   routes() {
-    this.app.use("/tasks", taskRoutes);
+    this.app.use("/", taskRoutes);
   }
 }
 
