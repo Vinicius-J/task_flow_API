@@ -1,21 +1,22 @@
 const TaskStatus = require("../utils/TaskStatus.js");
 
-class CreateTaskService {
-  constructor(repository) {
-    this.repository = repository;
-  }
+function CreateTaskService(repository) {
+  const _repository = repository;
+  return {
+    execute(task) {
+      if (!task || typeof task !== "string") {
+        throw new Error("Task is required");
+      }
+      return Promise.resolve(_repository.findAll()).then(function (tasks) {
+        const lastTask = tasks[tasks.length - 1];
+        const id = lastTask ? lastTask.id + 1 : 1;
 
-  execute(task) {
-    if (!task || typeof task !== "string") throw new Error("Task is required");
-
-    const lastTask = this.repository.findAll().at(-1);
-    const id = lastTask ? lastTask.id + 1 : 1;
-
-    const newTask = { id, status: TaskStatus.IN_PROGRESS, task };
-    this.repository.create(newTask);
-
-    return newTask;
-  }
+        const newTask = { id, status: TaskStatus.IN_PROGRESS, task };
+        _repository.create(newTask);
+        return newTask;
+      });
+    },
+  };
 }
 
 module.exports = CreateTaskService;

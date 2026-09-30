@@ -1,4 +1,4 @@
-const TaskStatus = "../utils/TaskStatus.js";
+const TaskStatus = require("../utils/TaskStatus.js");
 
 let tasks = [
   { id: 1, status: TaskStatus.IN_PROGRESS, task: "Tarefa 1" },

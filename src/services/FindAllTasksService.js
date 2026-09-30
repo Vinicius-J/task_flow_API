@@ -1,12 +1,10 @@
-class FindAllTasksService {
-  constructor(repository) {
-    this.repository = repository;
-  }
-
-  execute() {
-    const tasks = this.repository.findAll();
-    return tasks;
-  }
+function FindAllTasksService(repository) {
+  const _repository = repository;
+  return {
+    execute() {
+      return Promise.resolve(_repository.findAll());
+    },
+  };
 }
 
 module.exports = FindAllTasksService;

@@ -3,7 +3,7 @@ const DeleteTaskService = require("../services/DeleteTaskService.js");
 
 function makeDeleteTaskService() {
   const repository = InMemoryTaskRepository;
-  return new DeleteTaskService(repository);
+  return DeleteTaskService(repository);
 }
 
 module.exports = makeDeleteTaskService;

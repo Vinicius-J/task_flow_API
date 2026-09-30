@@ -3,7 +3,7 @@ const FindTaskByIdService = require("../services/FindTaskByIdService.js");
 
 function makeFindTaskByIdService() {
   const repository = InMemoryTaskRepository;
-  return new FindTaskByIdService(repository);
+  return FindTaskByIdService(repository);
 }
 
 module.exports = makeFindTaskByIdService;

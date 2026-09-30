@@ -3,7 +3,8 @@ const FindAllTasksService = require("../services/FindAllTasksService.js");
 
 function makeFindAllTasksService() {
   const repository = InMemoryTaskRepository;
-  return new FindAllTasksService(repository);
+
+  return FindAllTasksService(repository);
 }
 
 module.exports = makeFindAllTasksService;

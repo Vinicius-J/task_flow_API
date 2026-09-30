@@ -3,7 +3,7 @@ const CreateTaskService = require("../services/CreateTaskService.js");
 
 function makeCreateTaskService() {
   const repository = InMemoryTaskRepository;
-  return new CreateTaskService(repository);
+  return CreateTaskService(repository);
 }
 
 module.exports = makeCreateTaskService;
