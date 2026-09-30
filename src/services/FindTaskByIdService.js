@@ -2,7 +2,7 @@ function FindTaskByIdService(repository) {
   const _repository = repository;
   return {
     execute(id) {
-      return Promise.resolve(_repository.findById(id)).then(function (task) {
+      return _repository.findById(id).then(function (task) {
         if (!task) throw new Error("Task not found");
         return task;
       });

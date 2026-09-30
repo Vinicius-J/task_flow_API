@@ -2,7 +2,7 @@ function FindAllTasksService(repository) {
   const _repository = repository;
   return {
     execute() {
-      return Promise.resolve(_repository.findAll());
+      return _repository.findAll();
     },
   };
 }

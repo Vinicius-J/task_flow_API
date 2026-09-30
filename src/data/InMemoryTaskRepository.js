@@ -10,22 +10,28 @@ let tasks = [
 
 const InMemoryTaskRepository = {
   create(task) {
-    tasks.push(task);
+    return Promise.resolve(tasks.push(task));
   },
   findAll() {
-    return tasks;
+    return Promise.resolve(tasks);
   },
   findById(id) {
-    return tasks.find((task) => task.id === Number(id));
+    return Promise.resolve(tasks.find((task) => task.id === Number(id)));
   },
   update(id, updatedTask) {
-    const task = tasks.find((task) => task.id === Number(id));
-    task.task = updatedTask;
+    return Promise.resolve(tasks.find((task) => task.id === Number(id))).then(
+      function (task) {
+        task.task = updatedTask;
+        return task;
+      },
+    );
   },
-  delete(id) {
-    const newTasks = tasks.filter((task) => task.id !== Number(id));
-    tasks = newTasks;
-    return tasks;
+  deleteTask(id) {
+    return Promise.resolve(tasks.filter((task) => task.id !== Number(id))).then(
+      function (newTasks) {
+        tasks = newTasks;
+      },
+    );
   },
 };
 
