@@ -2,23 +2,22 @@ const express = require("express");
 
 const taskRoutes = require("../routes/task.routes.js");
 
-class App {
-  constructor() {
-    this.app = express();
-    this.middlewares();
-    this.routes();
-  }
+function createApp() {
+  const app = express();
 
-  middlewares() {
-    this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.json());
-  }
+  const middlewares = function () {
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.json());
+  };
 
-  routes() {
-    this.app.use("/", taskRoutes);
-  }
+  const routes = function () {
+    app.use("/", taskRoutes);
+  };
+
+  middlewares();
+  routes();
+
+  return app;
 }
 
-const app = new App().app;
-
-module.exports = app;
+module.exports = createApp();
