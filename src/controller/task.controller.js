@@ -4,6 +4,8 @@ const makeFindTaskByIdService = require("../factories/makeFindTaskByIdService.js
 const makeUpdateTaskService = require("../factories/makeUpdateTaskService.js");
 const makeDeleteTaskService = require("../factories/makeDeleteTaskService.js");
 
+const getRequestBody = require("../utils/getRequestBody.js");
+
 function TaskController() {
   return {
     index(req, res) {
@@ -12,62 +14,105 @@ function TaskController() {
       useCase
         .execute()
         .then(function (tasks) {
-          return res.status(200).json(tasks);
+          res.writeHead(200, {
+            "Content-Type": "application/json",
+          });
+
+          res.end(JSON.stringify(tasks));
         })
         .catch(function (err) {
-          return res.status(400).json({ message: err.message });
+          res.writeHead(400, {
+            "Content-Type": "application/json",
+          });
+
+          res.end(JSON.stringify({ message: err.message }));
         });
     },
     store(req, res) {
-      const { task } = req.body;
-      const useCase = makeCreateTaskService();
+      getRequestBody(req).then(function (body) {
+        const { task } = body;
 
-      useCase
-        .execute(task)
-        .then(function (newTask) {
-          return res.status(201).json(newTask);
-        })
-        .catch(function (err) {
-          return res.status(400).json({ message: err.message });
-        });
+        useCase
+          .execute(task)
+          .then(function (newTask) {
+            res.writeHead(201, {
+              "Content-Type": "application/json",
+            });
+
+            res.end(JSON.stringify(newTask));
+          })
+          .catch(function (err) {
+            res.writeHead(400, {
+              "Content-Type": "application/json",
+            });
+
+            res.end(JSON.stringify({ message: err.message }));
+          });
+      });
+
+      const useCase = makeCreateTaskService();
     },
-    show(req, res) {
-      const { id } = req.params;
+    show(req, res, id) {
       const useCase = makeFindTaskByIdService();
 
       useCase
         .execute(id)
         .then(function (task) {
-          return res.status(200).json(task);
-        })
-        .catch(function (err) {
-          return res.status(404).json({ message: err.message });
-        });
-    },
-    update(req, res) {
-      const { id } = req.params;
-      const { updatedTask } = req.body;
-      const useCase = makeUpdateTaskService();
+          res.writeHead(200, {
+            "Content-Type": "application/json",
+          });
 
-      useCase
-        .execute(id, updatedTask)
-        .then(function (task) {
-          return res.status(200).json(task);
+          res.end(JSON.stringify(task));
         })
         .catch(function (err) {
-          return res.status(404).json({ message: err.message });
+          res.writeHead(404, {
+            "Content-Type": "application/json",
+          });
+
+          res.end(JSON.stringify({ message: err.message }));
         });
     },
-    deleteTask(req, res) {
-      const { id } = req.params;
+    update(req, res, id) {
+      getRequestBody(req).then(function (body) {
+        const { updatedTask } = body;
+
+        const useCase = makeUpdateTaskService();
+
+        useCase
+          .execute(id, updatedTask)
+          .then(function (task) {
+            res.writeHead(200, {
+              "Content-Type": "application/json",
+            });
+
+            res.end(JSON.stringify(task));
+          })
+          .catch(function (err) {
+            res.writeHead(404, {
+              "Content-Type": "application/json",
+            });
+
+            res.end(JSON.stringify({ message: err.message }));
+          });
+      });
+    },
+    deleteTask(req, res, id) {
       const useCase = makeDeleteTaskService();
       useCase
         .execute(id)
         .then(function () {
-          return res.sendStatus(204);
+          res.writeHead(204, {
+            "Content-Type": "application/json",
+          });
+
+          res.end();
         })
         .catch(function (err) {
-          return res.status(404).json({ message: err.message });
+          res.writeHead(404, {
+            "Content-Type": "application/json",
+          });
+
+          res.end(JSON.stringify({ message: err.message }));
         });
     },
   };

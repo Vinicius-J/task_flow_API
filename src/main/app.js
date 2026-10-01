@@ -1,23 +1,9 @@
-const express = require("express");
+const http = require("http");
 
-const taskRoutes = require("../routes/task.routes.js");
+const routes = require("../routes/ index.routes");
 
-function createApp() {
-  const app = express();
+const server = http.createServer(function (req, res) {
+  routes(req, res);
+});
 
-  const middlewares = function () {
-    app.use(express.urlencoded({ extended: true }));
-    app.use(express.json());
-  };
-
-  const routes = function () {
-    app.use("/", taskRoutes);
-  };
-
-  middlewares();
-  routes();
-
-  return app;
-}
-
-module.exports = createApp();
+module.exports = server;
