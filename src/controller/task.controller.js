@@ -32,6 +32,8 @@ function TaskController() {
       getRequestBody(req).then(function (body) {
         const { task } = body;
 
+        const useCase = makeCreateTaskService();
+
         useCase
           .execute(task)
           .then(function (newTask) {
@@ -49,8 +51,6 @@ function TaskController() {
             res.end(JSON.stringify({ message: err.message }));
           });
       });
-
-      const useCase = makeCreateTaskService();
     },
     show(req, res, id) {
       const useCase = makeFindTaskByIdService();
@@ -74,8 +74,6 @@ function TaskController() {
     },
     update(req, res, id) {
       getRequestBody(req).then(function (body) {
-        const { updatedTask } = body;
-
         const useCase = makeUpdateTaskService();
 
         useCase
